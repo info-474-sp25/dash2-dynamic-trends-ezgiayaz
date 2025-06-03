@@ -19,7 +19,10 @@ d3.csv("weather.csv").then(data => {
     });
 
     const cityList = Array.from(new Set(data.map(d => d.city))).sort();
-    const colorScale = d3.scaleOrdinal(d3.schemeTableau10);
+    const colorScale = d3.scaleOrdinal()
+        .domain(["Charlotte, NC", "Chicago (Midway), IL", "Indianapolis, IN", "Jacksonville, FL", "Philadelphia, PA", "Phoenix, AZ"])
+        .range(["steelblue", "orange", "green", "red", "goldenrod", "purple"]); // 👈 Change this last one to "purple"
+
 
     const xScale = d3.scaleTime()
         .domain(d3.extent(data, d => d.date))
@@ -153,6 +156,8 @@ d3.csv("weather.csv").then(data => {
             .attr("y", (_, i) => legendY + legendPadding + i * lineHeight + 9)
             .text(([city]) => city)
             .attr("font-size", "12px");
+
+            
     }
 
     // INITIAL DRAW
